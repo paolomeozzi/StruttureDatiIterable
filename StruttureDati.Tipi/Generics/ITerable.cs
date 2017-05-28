@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StruttureDati.Tipi.Generics
 {
-    public interface FromEnumerable<T>
+    public interface ITerable<T>
     {
         void Reset();
         bool GetNext(out T item);

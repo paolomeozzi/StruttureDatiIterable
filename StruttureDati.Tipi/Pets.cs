@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace StruttureDati.Tipi
 {
     using Generics;
-    public class Pets:FromEnumerable<Pet>
+    public class Pets:ITerable<Pet>
     {
         Lista<Pet> pets = new Lista<Pet>();
 

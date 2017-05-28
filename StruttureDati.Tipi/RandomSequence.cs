@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace StruttureDati.Tipi
 {
     using Generics;
-    public class RandomSequence : FromEnumerable<int>
+    public class RandomSequence : ITerable<int>
     {
         int length;
         int minValue;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StruttureDati.Tipi.Generics
 {
-    public class StackLinked<T> : IStack<T>, FromEnumerable<T>
+    public class StackLinked<T> : IStack<T>, ITerable<T>
     {
         private Item<T> head;
         public bool IsEmpty()

@@ -10,23 +10,23 @@ namespace StruttureDati.Tipi.Generics
     public static class ITerableExtension
     {
         #region extension methods
-        public static FromEnumerable<T> Where<T>(this FromEnumerable<T> items, Func<T, bool> func)
+        public static ITerable<T> Where<T>(this ITerable<T> items, Func<T, bool> func)
         {
             return new WhereIterable<T>(items, func);
         }
-        public static FromEnumerable<TR> Select<T, TR>(this FromEnumerable<T> items, Func<T, TR> sel)
+        public static ITerable<TR> Select<T, TR>(this ITerable<T> items, Func<T, TR> sel)
         {
             return new SelectIterable<T, TR>(items, sel);
         }
-        public static FromEnumerable<T> Take<T>(this FromEnumerable<T> items, int count)
+        public static ITerable<T> Take<T>(this ITerable<T> items, int count)
         {
             return new TakeIterable<T>(items, count);
         }
-        public static FromEnumerable<T> Skip<T>(this FromEnumerable<T> items, int count)
+        public static ITerable<T> Skip<T>(this ITerable<T> items, int count)
         {
             return new SkipIterable<T>(items, count);
         }
-        public static T First<T>(this FromEnumerable<T> items)
+        public static T First<T>(this ITerable<T> items)
         {
             items.Reset();
             T item;
@@ -35,7 +35,7 @@ namespace StruttureDati.Tipi.Generics
                 throw new InvalidOperationException("La sequenza non contiene elementi");
             return item;
         }
-        public static void Foreach<T>(this FromEnumerable<T> items, Action<T> action)
+        public static void Foreach<T>(this ITerable<T> items, Action<T> action)
         {
             items.Reset();
             T value;
@@ -44,7 +44,7 @@ namespace StruttureDati.Tipi.Generics
                 action(value);
             }
         }
-        public static int Count<T>(this FromEnumerable<T> items)
+        public static int Count<T>(this ITerable<T> items)
         {
             int count = 0;
             items.Reset();
@@ -53,13 +53,13 @@ namespace StruttureDati.Tipi.Generics
                 count++;
             return count;
         }
-        public static double Sum<T>(this FromEnumerable<T> items, Func<T, double> sel)
+        public static double Sum<T>(this ITerable<T> items, Func<T, double> sel)
         {
             double sum = 0;
             items.Foreach(e => sum = sum + sel(e));
             return sum;
         }
-        public static double Avg<T>(this FromEnumerable<T> items, Func<T, double> sel)
+        public static double Avg<T>(this ITerable<T> items, Func<T, double> sel)
         {
             double sum = 0;
             int count = 0;
@@ -75,22 +75,22 @@ namespace StruttureDati.Tipi.Generics
         #endregion
 
         #region conversione da/verso IEnumerable
-        public static FromEnumerable<T> ToIterable<T>(this IEnumerable<T> items)
+        public static ITerable<T> FromEnumerable<T>(this IEnumerable<T> items)
         {
             return new FromEnumerable<T>(items);
         }
-        public static IEnumerable<T> ToEnumerable<T>(this FromEnumerable<T> items)
+        public static IEnumerable<T> ToEnumerable<T>(this ITerable<T> items)
         {
             return new ToEnumerable<T>(items);
         }
         #endregion
     }
 
-    public class WhereIterable<T> : FromEnumerable<T>
+    public class WhereIterable<T> : ITerable<T>
     {
-        FromEnumerable<T> items;
+        ITerable<T> items;
         Func<T, bool> func;
-        public WhereIterable(FromEnumerable<T> items, Func<T, bool> func)
+        public WhereIterable(ITerable<T> items, Func<T, bool> func)
         {
             this.items = items;
             this.func = func;
@@ -112,11 +112,11 @@ namespace StruttureDati.Tipi.Generics
         }
     }
 
-    public class SelectIterable<TI,T> : FromEnumerable<T>
+    public class SelectIterable<TI,T> : ITerable<T>
     {
-        FromEnumerable<TI> items;
+        ITerable<TI> items;
         Func<TI, T> select;
-        public SelectIterable(FromEnumerable<TI> items, Func<TI, T> select)
+        public SelectIterable(ITerable<TI> items, Func<TI, T> select)
         {
             this.items = items;
             this.select = select;
@@ -139,11 +139,11 @@ namespace StruttureDati.Tipi.Generics
         }
     }
 
-    public class TakeIterable<T> : FromEnumerable<T>
+    public class TakeIterable<T> : ITerable<T>
     {
-        FromEnumerable<T> items;
+        ITerable<T> items;
         int count;
-        public TakeIterable(FromEnumerable<T> items, int count)
+        public TakeIterable(ITerable<T> items, int count)
         {
             if (count <= 0)
                 throw new ArgumentOutOfRangeException(nameof(count), "Il valore deve essere maggiore di zero");
@@ -169,11 +169,11 @@ namespace StruttureDati.Tipi.Generics
         }
     }
 
-    public class SkipIterable<T> : FromEnumerable<T>
+    public class SkipIterable<T> : ITerable<T>
     {
-        FromEnumerable<T> items;
+        ITerable<T> items;
         int skipCount;
-        public SkipIterable(FromEnumerable<T> items, int skipCount)
+        public SkipIterable(ITerable<T> items, int skipCount)
         {
             if (skipCount < 0)
                 throw new ArgumentOutOfRangeException(nameof(skipCount), "Il valore non deve essere minore di zero");
@@ -194,7 +194,7 @@ namespace StruttureDati.Tipi.Generics
         }
     }
 
-    public class FromEnumerable<T> : FromEnumerable<T>
+    public class FromEnumerable<T> : ITerable<T>
     {
         IEnumerable<T> items;
         IEnumerator<T> it;
@@ -222,8 +222,8 @@ namespace StruttureDati.Tipi.Generics
 
     public class ToEnumerable<T> : IEnumerable<T>, IEnumerator<T>
     {
-        FromEnumerable<T> items;
-        public ToEnumerable(FromEnumerable<T> items)
+        ITerable<T> items;
+        public ToEnumerable(ITerable<T> items)
         {
             this.items = items;
             items.Reset();
