@@ -77,11 +77,11 @@ namespace StruttureDati.Tipi.Generics
         #region conversione da/verso IEnumerable
         public static ITerable<T> ToIterable<T>(this IEnumerable<T> items)
         {
-            return new ToIterable<T>(items);
+            return new FromEnumerable<T>(items);
         }
         public static IEnumerable<T> FromIterable<T>(this ITerable<T> items)
         {
-            return new FromIterable<T>(items);
+            return new ToEnumerable<T>(items);
         }
         #endregion
     }
@@ -194,11 +194,11 @@ namespace StruttureDati.Tipi.Generics
         }
     }
 
-    public class ToIterable<T> : ITerable<T>
+    public class FromEnumerable<T> : ITerable<T>
     {
         IEnumerable<T> items;
         IEnumerator<T> it;
-        public ToIterable(IEnumerable<T> items)
+        public FromEnumerable(IEnumerable<T> items)
         {
             this.items = items;
         }
@@ -220,10 +220,10 @@ namespace StruttureDati.Tipi.Generics
         }
     }
 
-    public class FromIterable<T> : IEnumerable<T>, IEnumerator<T>
+    public class ToEnumerable<T> : IEnumerable<T>, IEnumerator<T>
     {
         ITerable<T> items;
-        public FromIterable(ITerable<T> items)
+        public ToEnumerable(ITerable<T> items)
         {
             this.items = items;
             items.Reset();
