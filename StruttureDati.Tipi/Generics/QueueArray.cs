@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StruttureDati.Tipi.Generics
 {
-    public class QueueArray<T>: IQueue<T>, ITerable<T>
+    public class QueueArray<T>: IQueue<T>, FromEnumerable<T>
     {
         private int head;
         private int tail;

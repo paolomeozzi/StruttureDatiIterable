@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StruttureDati.Tipi.Generics
 {
-    public class Lista<T>: ITerable<T>
+    public class Lista<T>: FromEnumerable<T>
     {
         private T[] items;        
         public Lista(int capacity = 10)

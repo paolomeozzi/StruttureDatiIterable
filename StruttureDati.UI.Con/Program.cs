@@ -59,7 +59,7 @@ namespace StruttureDati.UI.Con
             Visualizza(r);                
         }
 
-        static void Visualizza<T>(ITerable<T> items)
+        static void Visualizza<T>(FromEnumerable<T> items)
         {
             Type t = items.GetType();
             Console.Write("\n\n{0,-15} -> ", t.Name);
@@ -72,7 +72,7 @@ namespace StruttureDati.UI.Con
             }
         }
 
-        static ITerable<T> Filtra<T>(ITerable<T>items, Func<T, bool> filtro)
+        static FromEnumerable<T> Filtra<T>(FromEnumerable<T>items, Func<T, bool> filtro)
         {
             var lista = new Lista<T>();
             T value;

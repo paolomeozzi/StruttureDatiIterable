@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StruttureDati.Tipi.Generics
 {
-    public class StackArray<T>:IStack<T>, ITerable<T>
+    public class StackArray<T>:IStack<T>, FromEnumerable<T>
     {
         private int head;
         T[] items;
