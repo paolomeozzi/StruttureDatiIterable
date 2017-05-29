@@ -13,14 +13,12 @@ namespace StruttureDati.Tipi
         int minValue;
         int maxValue;
         Random rnd = new Random();
-        public RandomSequence(int length, int minValue = 0, int maxValue = -1)
+        //sequenza di elementi compresa in [minValue - maxValue[
+        public RandomSequence(int length, int minValue, int maxValue)
         {
-            if (maxValue < 0)
-                maxValue = int.MaxValue-1;
-
             this.length = length;
             this.minValue = minValue;
-            this.maxValue = maxValue+1;
+            this.maxValue = maxValue;
         }
         #region Implementazione ITerable
         int count;

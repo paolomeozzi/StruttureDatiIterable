@@ -23,6 +23,7 @@ namespace StruttureDati.UI.Con
         {
             CaricaDati();
             Visualizza();
+            Console.WriteLine();
         }
 
         static void CaricaDati()
@@ -56,7 +57,8 @@ namespace StruttureDati.UI.Con
 
             //var r = Filtra(lista, e => e > 2);
             var r = lista.Where(e => e > 2);
-            Visualizza(r);                
+            Visualizza(new RandomSequence(10, 1, 11));
+            //Visualizza(r);                
         }
 
         static void Visualizza<T>(ITerable<T> items)
